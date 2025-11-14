@@ -66,5 +66,116 @@ const updateTotalPrice = (amount) => {
 
   console.log("New totalPrice value:", totalPrice);
 };
-// NOTE: You can commit now:
-// git commit -am "Step 6 – created updateTotalPrice helper function"
+
+
+// ==============================
+// Step 4: Helper function to create a single cart item
+// ==============================
+
+/*
+ Note to self:
+ - This function builds one cart row in the list.
+ - It takes a productName and productPriceNumber.
+ - It makes a new <li>, adds text, adds a remove button, and puts it into the <ul>.
+*/
+const createCartItem = (productName, productPriceNumber) => {
+  console.log("createCartItem called with:", productName, productPriceNumber);
+
+  // Note to self: Make a new list item <li> to hold this cart row.
+  const listItem = document.createElement("li");
+  listItem.classList.add("cart-item");
+
+  // Note to self: Store the price on the item so we can use it later when removing.
+  listItem.dataset.price = productPriceNumber.toString();
+
+  // Note to self: This div holds the text ( product name and price ).
+  const infoDiv = document.createElement("div");
+  infoDiv.classList.add("item-info");
+  infoDiv.textContent = `${productName} - $${productPriceNumber.toFixed(2)}`;
+  console.log("infoDiv created with text:", infoDiv.textContent);
+
+  // Note to self: This button lets the user remove this item from the cart.
+  const removeButton = document.createElement("button");
+  removeButton.classList.add("remove-button");
+  removeButton.textContent = "Remove";
+
+  // Note to self: When we click "Remove", this function will run.
+  removeButton.addEventListener("click", () => {
+    console.log("Remove button clicked for item:", productName);
+
+    // Note to self: Read the price from the dataset on the listItem.
+    const priceToRemove = parseFloat(listItem.dataset.price);
+    console.log("priceToRemove from dataset:", priceToRemove);
+
+    // Note to self: Subtract this price from the total.
+    updateTotalPrice(-priceToRemove);
+
+    // Note to self: Remove this item from the list visually.
+    listItem.remove();
+
+    console.log("Item removed from cart:", productName);
+  });
+
+  // Note to self: Put the infoDiv and removeButton inside the listItem.
+  listItem.appendChild(infoDiv);
+  listItem.appendChild(removeButton);
+
+  // Note to self: Finally, add the listItem to the <ul> cartList.
+  cartList.appendChild(listItem);
+
+  console.log("Cart item added to the DOM:", listItem);
+};
+// ==============================
+// Step 5: Main function to handle adding a product when button is clicked
+// ==============================
+
+/*
+ Note to self:
+ - This function reads what the user typed in the inputs.
+ - It checks if the inputs are valid (not empty, price is a real number).
+ - If valid, it creates a new cart item and updates the total price.
+*/
+const handleAddProduct = () => {
+  console.log("handleAddProduct fired");
+
+  // Note to self: Read the name and price from the inputs.
+  const rawName = productNameInput.value;
+  const rawPrice = productPriceInput.value;
+
+  console.log("Raw input values:", { rawName, rawPrice });
+
+  // Note to self: Trim spaces off the name (remove extra spaces at the start/end).
+  const cleanedName = rawName.trim();
+
+  // Note to self: Turn the price string into a number.
+  const priceNumber = parseFloat(rawPrice);
+
+  console.log("Cleaned name and priceNumber:", cleanedName, priceNumber);
+
+  // Note to self: Check for invalid name.
+  if (cleanedName === "") {
+    alert("Please enter a product name.");
+    console.log("Add product stopped: name was empty.");
+    return;
+  }
+
+  // Note to self: Check for invalid price (NaN means Not a Number).
+  if (isNaN(priceNumber) || priceNumber <= 0) {
+    alert("Please enter a valid price greater than 0.");
+    console.log("Add product stopped: price was invalid.");
+    return;
+  }
+
+  // Note to self: At this point, we have a valid name and valid price.
+  // - Build the cart item
+  createCartItem(cleanedName, priceNumber);
+
+  // - Update the total price by adding this new item's price.
+  updateTotalPrice(priceNumber);
+
+  // Note to self: Clear the inputs so the user can type a new item.
+  productNameInput.value = "";
+  productPriceInput.value = "";
+
+  console.log("Product added successfully and inputs cleared.");
+};
