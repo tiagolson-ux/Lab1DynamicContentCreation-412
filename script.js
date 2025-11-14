@@ -1,21 +1,31 @@
-const productNameInput = document.getElementById('product-name');
-const productPriceInput = document.getElementById('product-price');
-const addProductButton = document.getElementById('add-product');
-const cart = document.getElementById('cart');
-const totalPriceSpan = document.getElementById('total-price');
- 
-let totalPrice = 0;
- 
-// Function to update the total price
-function updateTotalPrice(amount) {
-  totalPrice += amount;
-  totalPriceSpan.textContent = totalPrice.toFixed(2);
-}
- 
-// Function to remove an item
-function removeItem(event) {
-  const item = event.target.closest('li');
-  const price = parseFloat(item.dataset.price);
-  updateTotalPrice(-price);
-  item.remove();
-}
+// Lab 1 Dynamic Content Creation script (by-TN)
+// Note to self: This file makes the shopping cart work using JavaScript and the DOM.
+
+// ==============================
+// Step 1: Get important elements from the page
+// ==============================
+
+// Note to self: This gets the text box where the user types the product name.
+const productNameInput = document.getElementById("product-name");
+console.log("productNameInput is ready:", productNameInput);
+// NOTE: After testing this line, you can commit: 
+// git add script.js
+// git commit -m "Step 3 – grabbed productNameInput element"
+
+// Note to self: This gets the number input where the user types the product price.
+const productPriceInput = document.getElementById("product-price");
+console.log("productPriceInput is ready:", productPriceInput);
+// NOTE: Possible commit:
+// git commit -am "Step 4 – grabbed productPriceInput element"
+
+// Note to self: This gets the button that the user clicks to add a product to the cart.
+const addProductButton = document.getElementById("add-product");
+console.log("addProductButton is ready:", addProductButton);
+
+// Note to self: This gets the <ul> that will hold all of the cart items.
+const cartList = document.getElementById("cart");
+console.log("cartList (ul) is ready:", cartList);
+
+// Note to self: This gets the span where we will show the total price.
+const totalPriceSpan = document.getElementById("total-price");
+console.log("totalPriceSpan is ready:", totalPriceSpan);
