@@ -29,3 +29,13 @@ console.log("cartList (ul) is ready:", cartList);
 // Note to self: This gets the span where we will show the total price.
 const totalPriceSpan = document.getElementById("total-price");
 console.log("totalPriceSpan is ready:", totalPriceSpan);
+
+// ==============================
+// Step 2: Keep track of the total price
+// ==============================
+
+// Note to self: This variable starts at 0 and will hold the total price of all items.
+let totalPrice = 0;
+console.log("Starting totalPrice:", totalPrice);
+// NOTE: You can commit after setting up the main variables:
+// git commit -am "Step 5 – set up DOM references and totalPrice state"
