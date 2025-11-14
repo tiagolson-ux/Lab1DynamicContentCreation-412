@@ -39,3 +39,32 @@ let totalPrice = 0;
 console.log("Starting totalPrice:", totalPrice);
 // NOTE: You can commit after setting up the main variables:
 // git commit -am "Step 5 – set up DOM references and totalPrice state"
+
+// ==============================
+// Step 3: Helper function to update the total price on the page
+// ==============================
+
+/*
+ Note to self:
+ - This function changes the totalPrice when we add or remove an item.
+ - amount will be positive when we add an item.
+ - amount will be negative when we remove an item.
+*/
+const updateTotalPrice = (amount) => {
+  console.log("updateTotalPrice called with amount:", amount);
+
+  // Note to self: Change the value of totalPrice by adding the amount.
+  totalPrice = totalPrice + amount;
+
+  // Note to self: Make sure the number never goes below 0.
+  if (totalPrice < 0) {
+    totalPrice = 0;
+  }
+
+  // Note to self: Show the new total with 2 decimal places (like 10.50).
+  totalPriceSpan.textContent = totalPrice.toFixed(2);
+
+  console.log("New totalPrice value:", totalPrice);
+};
+// NOTE: You can commit now:
+// git commit -am "Step 6 – created updateTotalPrice helper function"
